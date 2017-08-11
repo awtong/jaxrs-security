@@ -1,8 +1,8 @@
-package awt.security;
+package awt.jaxrs.security;
 
 import java.lang.annotation.*;
 
-import awt.security.authenticator.Authenticator;
+import awt.jaxrs.security.authenticator.Authenticator;
 
 /**
  * Holds information that maps an Authorization scheme to code to be executed if

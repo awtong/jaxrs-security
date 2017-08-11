@@ -13,7 +13,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import awt.security.authenticator.*;
+import awt.jaxrs.security.*;
+import awt.jaxrs.security.authenticator.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SecurityFeatureTest {

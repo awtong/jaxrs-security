@@ -9,6 +9,8 @@ import javax.ws.rs.BadRequestException;
 
 import org.junit.Test;
 
+import awt.jaxrs.security.authenticator.BasicPasswordAuthentication;
+
 public class BasicPasswordAuthenticationTest {
 
     @Test

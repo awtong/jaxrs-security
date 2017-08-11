@@ -1,4 +1,4 @@
-package awt.security;
+package awt.jaxrs.security;
 
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
@@ -11,7 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.container.*;
 import javax.ws.rs.core.Response;
 
-import awt.security.authenticator.Authenticator;
+import awt.jaxrs.security.authenticator.Authenticator;
 
 /**
  * Executes specified authentication method.

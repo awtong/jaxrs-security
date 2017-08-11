@@ -17,6 +17,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import awt.jaxrs.security.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class SecurityFilterTest {
     private static final Collection<String> VALID_SCHEMES = new ArrayList<>();

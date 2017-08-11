@@ -1,6 +1,6 @@
-package awt.security.authenticator;
+package awt.jaxrs.security.authenticator;
 
-import awt.security.AuthorizationHeader;
+import awt.jaxrs.security.AuthorizationHeader;
 
 /**
  * Allows anyone to log in.

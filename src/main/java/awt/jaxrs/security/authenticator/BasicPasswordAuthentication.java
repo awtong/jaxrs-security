@@ -1,4 +1,4 @@
-package awt.security.authenticator;
+package awt.jaxrs.security.authenticator;
 
 import java.util.*;
 

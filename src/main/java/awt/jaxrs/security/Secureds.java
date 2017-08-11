@@ -1,4 +1,4 @@
-package awt.security;
+package awt.jaxrs.security;
 
 import java.lang.annotation.*;
 

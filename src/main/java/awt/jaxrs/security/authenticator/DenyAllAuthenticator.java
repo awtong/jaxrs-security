@@ -1,9 +1,9 @@
-package awt.security.authenticator;
+package awt.jaxrs.security.authenticator;
 
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.Response;
 
-import awt.security.AuthorizationHeader;
+import awt.jaxrs.security.AuthorizationHeader;
 
 /**
  * Does not allow anyone to log in.

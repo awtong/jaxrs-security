@@ -7,6 +7,8 @@ import javax.ws.rs.BadRequestException;
 
 import org.junit.Test;
 
+import awt.jaxrs.security.AuthorizationHeader;
+
 public class AuthorizationHeaderTest {
 
     /**

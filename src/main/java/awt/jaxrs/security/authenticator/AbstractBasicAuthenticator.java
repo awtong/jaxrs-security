@@ -1,10 +1,10 @@
-package awt.security.authenticator;
+package awt.jaxrs.security.authenticator;
 
-import awt.security.AuthorizationHeader;
+import awt.jaxrs.security.AuthorizationHeader;
 
 /**
  * Extensible class for when scheme = Basic.
- * 
+ *
  * @author awt
  *
  */
@@ -16,5 +16,5 @@ public abstract class AbstractBasicAuthenticator implements Authenticator {
 	this.authenticate(auth.getUsername(), auth.getPassword());
     }
 
-    abstract void authenticate(final String username, final String password);
+    public abstract void authenticate(final String username, final String password);
 }

@@ -10,7 +10,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import awt.security.AuthorizationHeader;
+import awt.jaxrs.security.AuthorizationHeader;
+import awt.jaxrs.security.authenticator.AbstractBasicAuthenticator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AbstractBasicAuthenticatorTest {
