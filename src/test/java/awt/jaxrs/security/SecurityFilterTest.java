@@ -1,4 +1,4 @@
-package awt.security;
+package awt.jaxrs.security;
 
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import static org.hamcrest.CoreMatchers.*;
@@ -14,10 +14,10 @@ import javax.ws.rs.core.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import awt.jaxrs.security.*;
+import awt.jaxrs.security.authenticator.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SecurityFilterTest {
@@ -26,7 +26,7 @@ public class SecurityFilterTest {
 	VALID_SCHEMES.add("SUPPORTED_SCHEME");
     }
 
-    @Mock
+    @Spy
     private ContainerRequestContext context;
 
     @Test
@@ -105,7 +105,79 @@ public class SecurityFilterTest {
 	    new SecurityFilter(Collections.emptyList()).filter(this.context);
 	    fail("Should throw NotAuthorizedException");
 	} catch (final NotAuthorizedException expected) {
+	    final List<Object> challenges = expected.getChallenges();
+	    assertThat(challenges, is(nullValue()));
 
+	    final Response response = expected.getResponse();
+	    assertThat(response, is(notNullValue()));
+	    assertThat(response.getStatus(), is(UNAUTHORIZED.getStatusCode()));
 	}
+    }
+
+    @Test
+    public void testValidAuthorizationHeaderNoMatchingBasicSecuredAnnotation() throws IOException {
+	when(this.context.getHeaderString(HttpHeaders.AUTHORIZATION)).thenReturn("Basic dWlkOnB3ZA==");
+	try {
+	    new SecurityFilter(Collections.emptyList()).filter(this.context);
+	    fail("Should throw NotAuthorizedException");
+	} catch (final NotAuthorizedException expected) {
+	    final List<Object> challenges = expected.getChallenges();
+	    assertThat(challenges, is(nullValue()));
+
+	    final Response response = expected.getResponse();
+	    assertThat(response, is(notNullValue()));
+	    assertThat(response.getStatus(), is(UNAUTHORIZED.getStatusCode()));
+	}
+    }
+
+    @Test
+    public void testValidAuthorizationHeaderAllowAllAuthenticator() throws IOException {
+	when(this.context.getHeaderString(HttpHeaders.AUTHORIZATION)).thenReturn("Basic dWlkOnB3ZA==");
+	final Secured basic = mock(Secured.class);
+	when(basic.scheme()).thenReturn("BASIC");
+	doReturn(AllowAllAuthenticator.class).when(basic).authenticator();
+	new SecurityFilter(Arrays.asList(basic)).filter(this.context);
+	final SecurityContext ctx = this.context.getSecurityContext();
+	assertThat(ctx, is(nullValue()));
+    }
+
+    @Test
+    public void testValidAuthorizationHeaderDenyAllAuthenticator() throws IOException {
+	when(this.context.getHeaderString(HttpHeaders.AUTHORIZATION)).thenReturn("Basic dWlkOnB3ZA==");
+	final Secured basic = mock(Secured.class);
+	when(basic.scheme()).thenReturn("BASIC");
+	doReturn(DenyAllAuthenticator.class).when(basic).authenticator();
+	try {
+	    new SecurityFilter(Arrays.asList(basic)).filter(this.context);
+	    fail("Should throw NotAuthorizedException");
+	} catch (final NotAuthorizedException expected) {
+	    final List<Object> challenges = expected.getChallenges();
+	    assertThat(challenges, is(nullValue()));
+
+	    final Response response = expected.getResponse();
+	    assertThat(response, is(notNullValue()));
+	    assertThat(response.getStatus(), is(UNAUTHORIZED.getStatusCode()));
+	}
+    }
+
+    @Test
+    public void testValidAuthorizationWithParameters() throws IOException {
+	when(this.context.getHeaderString(HttpHeaders.AUTHORIZATION)).thenReturn("Basic dWlkOnB3ZA==");
+	final Secured basic = mock(Secured.class);
+	final AuthParam param1 = mock(AuthParam.class);
+	when(param1.key()).thenReturn("Key1");
+	when(param1.values()).thenReturn(new String[] { "VALUE1a", "VALUE1b" });
+
+	final AuthParam param2 = mock(AuthParam.class);
+	when(param2.key()).thenReturn("Key2");
+	when(param2.values()).thenReturn(new String[] { "VALUE2a", "VALUE2b" });
+
+	when(basic.scheme()).thenReturn("BASIC");
+	doReturn(AllowAllAuthenticator.class).when(basic).authenticator();
+	when(basic.parameters()).thenReturn(new AuthParam[] { param1, param2 });
+
+	new SecurityFilter(Arrays.asList(basic)).filter(this.context);
+	final SecurityContext ctx = this.context.getSecurityContext();
+	assertThat(ctx, is(nullValue()));
     }
 }

@@ -1,4 +1,4 @@
-package awt.security;
+package awt.jaxrs.security;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import awt.jaxrs.security.*;
 import awt.jaxrs.security.authenticator.*;
 
 @RunWith(MockitoJUnitRunner.class)

@@ -35,7 +35,7 @@ public @interface Secured {
     /**
      * Scheme to associate.
      *
-     * @return
+     * @return scheme
      */
     String scheme();
 
@@ -44,9 +44,9 @@ public @interface Secured {
     /**
      * Authentication code to run.
      *
-     * @return
+     * @return authenticator class
      */
     Class<? extends Authenticator> authenticator();
 
-    Authorization[] authorizers() default {};
+    AuthParam[] parameters() default {};
 }

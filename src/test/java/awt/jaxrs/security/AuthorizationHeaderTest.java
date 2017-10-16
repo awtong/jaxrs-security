@@ -1,4 +1,4 @@
-package awt.security;
+package awt.jaxrs.security;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;

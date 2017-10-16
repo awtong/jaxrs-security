@@ -10,7 +10,7 @@ import javax.ws.rs.ext.Provider;
 import org.slf4j.*;
 
 /**
- * Dynamically adds seurity filter to any JAX-RS method tagged with the
+ * Dynamically adds security filter to any JAX-RS method tagged with the
  * <code>Secured</code> annotation.
  *
  * @author awt
@@ -32,11 +32,9 @@ public class SecurityFeature implements DynamicFeature {
 	context.register(filter);
 
 	if (LOGGER.isDebugEnabled()) {
-	    final String className = info.getResourceClass().getName();
-	    final String methodName = method.getName();
 	    for (final Secured authentication : authentications) {
-		LOGGER.debug("{}#{} secured by scheme '{}' using class '{}'", className, methodName,
-			authentication.scheme(), authentication.authenticator().getName());
+		LOGGER.debug("{}#{} secured by scheme '{}' using class '{}'", info.getResourceClass().getName(),
+			method.getName(), authentication.scheme(), authentication.authenticator().getName());
 	    }
 	}
     }

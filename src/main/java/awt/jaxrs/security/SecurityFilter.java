@@ -9,7 +9,7 @@ import java.util.*;
 import javax.annotation.Priority;
 import javax.ws.rs.*;
 import javax.ws.rs.container.*;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 
 import awt.jaxrs.security.authenticator.Authenticator;
 
@@ -61,7 +61,15 @@ public class SecurityFilter implements ContainerRequestFilter {
 		.orElseThrow(() -> new NotAuthorizedException(Response.status(UNAUTHORIZED).build()));
 	try {
 	    final Authenticator authenticator = authentication.authenticator().newInstance();
-	    authenticator.authenticate(header);
+	    final Map<String, String[]> parameters = new HashMap<>();
+	    if (authentication.parameters() != null) {
+		for (final AuthParam param : authentication.parameters()) {
+		    parameters.put(param.key(), param.values());
+		}
+	    }
+
+	    final SecurityContext security = authenticator.authenticate(header, parameters);
+	    context.setSecurityContext(security);
 	} catch (final InstantiationException | IllegalAccessException exception) {
 	    throw new IOException(exception);
 	}
