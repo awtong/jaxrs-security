@@ -48,5 +48,5 @@ public @interface Secured {
      */
     Class<? extends Authenticator> authenticator();
 
-    AuthParam[] parameters() default {};
+    Param[] parameters() default {};
 }

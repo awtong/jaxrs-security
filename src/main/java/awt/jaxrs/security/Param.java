@@ -1,6 +1,6 @@
 package awt.jaxrs.security;
 
-public @interface AuthParam {
+public @interface Param {
     String key();
 
     String[] values();

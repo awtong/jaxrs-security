@@ -11,6 +11,7 @@ import javax.ws.rs.BadRequestException;
  * @author awt
  */
 public final class AuthorizationHeader {
+    private static final int VALID_NUMBER_OF_PARTS = 2;
     private final String scheme;
     private final String token;
 
@@ -18,7 +19,7 @@ public final class AuthorizationHeader {
 	Objects.requireNonNull(headerValue);
 
 	final String[] parts = headerValue.split(" ");
-	if (parts.length != 2) {
+	if (parts.length != VALID_NUMBER_OF_PARTS) {
 	    throw new BadRequestException();
 	}
 

@@ -164,17 +164,17 @@ public class SecurityFilterTest {
     public void testValidAuthorizationWithParameters() throws IOException {
 	when(this.context.getHeaderString(HttpHeaders.AUTHORIZATION)).thenReturn("Basic dWlkOnB3ZA==");
 	final Secured basic = mock(Secured.class);
-	final AuthParam param1 = mock(AuthParam.class);
+	final Param param1 = mock(Param.class);
 	when(param1.key()).thenReturn("Key1");
 	when(param1.values()).thenReturn(new String[] { "VALUE1a", "VALUE1b" });
 
-	final AuthParam param2 = mock(AuthParam.class);
+	final Param param2 = mock(Param.class);
 	when(param2.key()).thenReturn("Key2");
 	when(param2.values()).thenReturn(new String[] { "VALUE2a", "VALUE2b" });
 
 	when(basic.scheme()).thenReturn("BASIC");
 	doReturn(AllowAllAuthenticator.class).when(basic).authenticator();
-	when(basic.parameters()).thenReturn(new AuthParam[] { param1, param2 });
+	when(basic.parameters()).thenReturn(new Param[] { param1, param2 });
 
 	new SecurityFilter(Arrays.asList(basic)).filter(this.context);
 	final SecurityContext ctx = this.context.getSecurityContext();

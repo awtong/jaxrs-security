@@ -31,11 +31,9 @@ public class SecurityFeature implements DynamicFeature {
 	final SecurityFilter filter = new SecurityFilter(Arrays.asList(authentications));
 	context.register(filter);
 
-	if (LOGGER.isDebugEnabled()) {
-	    for (final Secured authentication : authentications) {
-		LOGGER.debug("{}#{} secured by scheme '{}' using class '{}'", info.getResourceClass().getName(),
-			method.getName(), authentication.scheme(), authentication.authenticator().getName());
-	    }
+	for (final Secured authentication : authentications) {
+	    LOGGER.debug("{}#{} secured by scheme '{}' using class '{}'", info.getResourceClass().getName(),
+		    method.getName(), authentication.scheme(), authentication.authenticator().getName());
 	}
     }
 }

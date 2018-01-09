@@ -63,7 +63,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 	    final Authenticator authenticator = authentication.authenticator().newInstance();
 	    final Map<String, String[]> parameters = new HashMap<>();
 	    if (authentication.parameters() != null) {
-		for (final AuthParam param : authentication.parameters()) {
+		for (final Param param : authentication.parameters()) {
 		    parameters.put(param.key(), param.values());
 		}
 	    }
