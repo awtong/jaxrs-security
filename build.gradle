@@ -21,7 +21,7 @@ configurations {
 }
 
 dependencies {
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
     
     compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'
     compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3'
@@ -33,8 +33,8 @@ dependencies {
     testCompileOnly group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0.1'
     testCompileOnly group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3'
     
-    testRuntime group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.+'
-    testRuntime group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.25.1'
+    testRuntime group: 'ch.qos.logback', name: 'logback-classic', version: '1.+'
+    testRuntime group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: jerseyVersion
 }
 
 task sourceJar(type: Jar) {
